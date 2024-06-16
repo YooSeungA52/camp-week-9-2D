@@ -9,6 +9,13 @@ public class ClickController : MonoBehaviour
     private int count = 0;
     private int clickReward = 1;
 
+    Animator anim;
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     void Start()
     {
         UpdateCountText();
@@ -21,6 +28,7 @@ public class ClickController : MonoBehaviour
 
     public void OnClick()
     {
+        anim.SetTrigger("isClick");
         count += clickReward;
         UpdateCountText();
     }
