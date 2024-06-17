@@ -117,6 +117,7 @@ public class ShopManager : MonoBehaviour
 
     void PrintGiveMeMoreCoinsUI()
     {
+        AudioManager.Instance.PlayFailSound();
         GiveMeMoreCoinsUI.SetActive(true);
         Invoke("HideGiveMeMoreCoinsUI", 1f); // 1초 뒤 비활성화
     }

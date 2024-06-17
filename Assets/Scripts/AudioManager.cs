@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip clickSound;
     public AudioClip buySound;
     public AudioClip upgradeSound;
+    public AudioClip failSound;
 
     private void Awake()
     {
@@ -44,5 +45,10 @@ public class AudioManager : MonoBehaviour
     public void PlayUpgradeSound()
     {
         sfxSource.PlayOneShot(upgradeSound);
+    }
+
+    public void PlayFailSound()
+    {
+        sfxSource.PlayOneShot(failSound);
     }
 }
