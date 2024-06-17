@@ -15,6 +15,7 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI AutoClickPriceText; // 자동 클릭 업그레이드 비용
     public TextMeshProUGUI CurrentClickCoinTxt;  // 현재 기본 클릭 코인량
     public TextMeshProUGUI CurrentAutoTimeTxt; // 현재 자동 클릭 시간
+    public GameObject GiveMeMoreCoinsUI; // 코인 부족 UI
 
     public Button BuyButton; // 구매 버튼
     public Button ClickUpgradeButton; // Click 업그레이드 버튼
@@ -46,7 +47,7 @@ public class ShopManager : MonoBehaviour
         ClickUpgradeButton.onClick.AddListener(OnClickUpgradeButton);
         AutoClickUpgradeButton.onClick.AddListener(OnAutoClickUpgradeButtonClick);
 
-        
+        GiveMeMoreCoinsUI.SetActive(false);
     }
 
     void Update()
@@ -54,7 +55,15 @@ public class ShopManager : MonoBehaviour
         UpdateClickPriceText();
         UpdateAutoClickPriceText();
         PrintCurrentClickCoinTxt();
-        PrintCurrentAutoTimeTxt();
+
+        if (!BuyButton.gameObject.activeSelf)
+        {
+            PrintCurrentAutoTimeTxt();
+        }
+        else
+        {
+            CurrentAutoTimeTxt.text = "";
+        }
     }
 
     void OnBuyButtonClick() // 자동 클릭 구매
@@ -69,7 +78,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            print("coin 부족");
+            PrintGiveMeMoreCoinsUI();
         }
     }
 
@@ -84,7 +93,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            print("coin 부족");
+            PrintGiveMeMoreCoinsUI();
         }
     }
 
@@ -99,8 +108,19 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            print("coin 부족");
+            PrintGiveMeMoreCoinsUI();
         }
+    }
+
+    void PrintGiveMeMoreCoinsUI()
+    {
+        GiveMeMoreCoinsUI.SetActive(true);
+        Invoke("HideGiveMeMoreCoinsUI", 1f); // 1초 뒤 비활성화
+    }
+
+    void HideGiveMeMoreCoinsUI()
+    {
+        GiveMeMoreCoinsUI.SetActive(false);
     }
 
     void UpdateClickPriceText()
