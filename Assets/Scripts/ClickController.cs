@@ -32,6 +32,7 @@ public class ClickController : MonoBehaviour
     public void OnClick()
     {
         anim.SetTrigger("isClick");
+        AudioManager.Instance.PlayClickSound();
         count++;
         Coin += ClickReward;
         UpdateCoinText();
@@ -48,6 +49,7 @@ public class ClickController : MonoBehaviour
         {
             yield return new WaitForSeconds(AutoClickTime);
             anim.SetTrigger("isClick");
+            AudioManager.Instance.PlayClickSound();
             count++;
             Coin += ClickReward;
             UpdateCoinText();

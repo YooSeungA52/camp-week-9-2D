@@ -70,6 +70,7 @@ public class ShopManager : MonoBehaviour
     {
         if (!autoClickUpgradeItem.IsBuy && clickController.Coin >= autoClickUpgradeItem.Price)
         {
+            AudioManager.Instance.PlayBuySound();
             clickController.Coin -= autoClickUpgradeItem.Price;
             autoClickUpgradeItem.IsBuy = true;
             clickController.StartAutoClick(); // 자동 클릭 시작
@@ -86,6 +87,7 @@ public class ShopManager : MonoBehaviour
     {
         if (clickUpgradeItem.IsBuy && clickController.Coin >= clickUpgradeItem.UpgradePrice)
         {
+            AudioManager.Instance.PlayUpgradeSound();
             clickController.Coin -= clickUpgradeItem.UpgradePrice;
             clickUpgradeItem.UpgradeLevel++;
             clickController.IncreaseClickReward(1); // 클릭 보상 증가
@@ -101,6 +103,7 @@ public class ShopManager : MonoBehaviour
     {
         if (autoClickUpgradeItem.IsBuy && clickController.Coin >= autoClickUpgradeItem.UpgradePrice)
         {
+            AudioManager.Instance.PlayUpgradeSound();
             clickController.Coin -= autoClickUpgradeItem.UpgradePrice;
             autoClickUpgradeItem.UpgradeLevel++;
             clickController.DecreaseClickReward(0.05f); // 자동 클릭 시간 감소
