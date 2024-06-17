@@ -1,24 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    public ShopItem clickUpgradeItem; // ±âº» Å¬¸¯ ¾ÆÀÌÅÛ
-    public ShopItem autoClickUpgradeItem; // ÀÚµ¿ Å¬¸¯ ¾ÆÀÌÅÛ
+    public ShopItem clickUpgradeItem; // ê¸°ë³¸ í´ë¦­ ì•„ì´í…œ
+    public ShopItem autoClickUpgradeItem; // ìë™ í´ë¦­ ì•„ì´í…œ
 
-    public TextMeshProUGUI ClickPriceText;  // ±âº» Å¬¸¯ ¾÷±×·¹ÀÌµå ºñ¿ë
-    public TextMeshProUGUI AutoClickPriceText; // ÀÚµ¿ Å¬¸¯ ¾÷±×·¹ÀÌµå ºñ¿ë
-    public TextMeshProUGUI CurrentClickCoinTxt;  // ÇöÀç ±âº» Å¬¸¯ ÄÚÀÎ·®
-    public TextMeshProUGUI CurrentAutoTimeTxt; // ÇöÀç ÀÚµ¿ Å¬¸¯ ½Ã°£
-    public GameObject GiveMeMoreCoinsUI; // ÄÚÀÎ ºÎÁ· UI
+    public TextMeshProUGUI ClickPriceText;  // ê¸°ë³¸ í´ë¦­ ì—…ê·¸ë ˆì´ë“œ ë¹„ìš©
+    public TextMeshProUGUI AutoClickPriceText; // ìë™ í´ë¦­ ì—…ê·¸ë ˆì´ë“œ ë¹„ìš©
+    public TextMeshProUGUI CurrentClickCoinTxt;  // í˜„ì¬ ê¸°ë³¸ í´ë¦­ ì½”ì¸ëŸ‰
+    public TextMeshProUGUI CurrentAutoTimeTxt; // í˜„ì¬ ìë™ í´ë¦­ ì‹œê°„
+    public GameObject GiveMeMoreCoinsUI; // ì½”ì¸ ë¶€ì¡± UI
 
-    public Button BuyButton; // ±¸¸Å ¹öÆ°
-    public Button ClickUpgradeButton; // Click ¾÷±×·¹ÀÌµå ¹öÆ°
-    public Button AutoClickUpgradeButton; // AutoClick ¾÷±×·¹ÀÌµå ¹öÆ°
+    public Button BuyButton; // êµ¬ë§¤ ë²„íŠ¼
+    public Button ClickUpgradeButton; // Click ì—…ê·¸ë ˆì´ë“œ ë²„íŠ¼
+    public Button AutoClickUpgradeButton; // AutoClick ì—…ê·¸ë ˆì´ë“œ ë²„íŠ¼
 
     public ClickController clickController;
 
@@ -33,7 +30,7 @@ public class ShopManager : MonoBehaviour
             UpgradePrice = 30,
             UpgradeAction = () =>
             {
-                clickController.IncreaseClickReward(1); // Å¬¸¯ º¸»ó Áõ°¡
+                clickController.IncreaseClickReward(1); // í´ë¦­ ë³´ìƒ ì¦ê°€
             }
         };
 
@@ -46,13 +43,11 @@ public class ShopManager : MonoBehaviour
             UpgradePrice = 100,
             UpgradeAction = () =>
             {
-                clickController.DecreaseClickReward(0.05f); // ÀÚµ¿ Å¬¸¯ ½Ã°£ °¨¼Ò
+                clickController.DecreaseClickReward(0.05f); // ìë™ í´ë¦­ ì‹œê°„ ê°ì†Œ
             }
         };
 
         BuyButton.onClick.AddListener(OnBuyAutoClickButton);
-        //ClickUpgradeButton.onClick.AddListener(OnClickUpgradeButton);
-        //AutoClickUpgradeButton.onClick.AddListener(OnAutoClickUpgradeButton);
         ClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(clickUpgradeItem));
         AutoClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(autoClickUpgradeItem));
 
@@ -61,10 +56,6 @@ public class ShopManager : MonoBehaviour
 
     void Update()
     {
-        /*
-        UpdateClickPriceText();
-        UpdateAutoClickPriceText();
-        */
         UpdatePriceText(ClickPriceText, clickUpgradeItem);
         UpdatePriceText(AutoClickPriceText, autoClickUpgradeItem);
 
@@ -80,16 +71,16 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void OnBuyAutoClickButton() // ÀÚµ¿ Å¬¸¯ ±¸¸Å
+    void OnBuyAutoClickButton() // ìë™ í´ë¦­ êµ¬ë§¤
     {
         if (!autoClickUpgradeItem.IsBuy && clickController.Coin >= autoClickUpgradeItem.Price)
         {
             AudioManager.Instance.PlayBuySound();
             clickController.Coin -= autoClickUpgradeItem.Price;
             autoClickUpgradeItem.IsBuy = true;
-            clickController.StartAutoClick(); // ÀÚµ¿ Å¬¸¯ ½ÃÀÛ
+            clickController.StartAutoClick(); // ìë™ í´ë¦­ ì‹œì‘
 
-            BuyButton.gameObject.SetActive(false); // ¹öÆ° ºñÈ°¼ºÈ­
+            BuyButton.gameObject.SetActive(false); // ë²„íŠ¼ ë¹„í™œì„±í™”
         }
         else
         {
@@ -97,15 +88,15 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void OnUpgradeButton(ShopItem item) // ¾ÆÀÌÅÛ ¾÷±×·¹ÀÌµå
+    void OnUpgradeButton(ShopItem item) // ì•„ì´í…œ ì—…ê·¸ë ˆì´ë“œ
     {
         if (item.IsBuy && clickController.Coin >= item.UpgradePrice)
         {
             AudioManager.Instance.PlayUpgradeSound();
             clickController.Coin -= item.UpgradePrice;
             item.UpgradeLevel++;
-            item.UpgradeAction(); // ¾÷±×·¹ÀÌµå µ¿ÀÛ ½ÇÇà
-            item.UpgradePrice += item.UpgradePrice / 2; // ¾÷±×·¹ÀÌµå ºñ¿ë Áõ°¡
+            item.UpgradeAction(); // ì—…ê·¸ë ˆì´ë“œ ë™ì‘ ì‹¤í–‰
+            item.UpgradePrice += item.UpgradePrice / 2; // ì—…ê·¸ë ˆì´ë“œ ë¹„ìš© ì¦ê°€
         }
         else
         {
@@ -117,7 +108,7 @@ public class ShopManager : MonoBehaviour
     {
         AudioManager.Instance.PlayFailSound();
         GiveMeMoreCoinsUI.SetActive(true);
-        Invoke("HideGiveMeMoreCoinsUI", 1f); // 1ÃÊ µÚ ºñÈ°¼ºÈ­
+        Invoke("HideGiveMeMoreCoinsUI", 1f); // 1ì´ˆ ë’¤ ë¹„í™œì„±í™”
     }
 
     void HideGiveMeMoreCoinsUI()
@@ -127,16 +118,16 @@ public class ShopManager : MonoBehaviour
 
     void UpdatePriceText(TextMeshProUGUI priceText, ShopItem item)
     {
-        priceText.text = "ºñ¿ë : " + item.UpgradePrice.ToString();
+        priceText.text = "ë¹„ìš© : " + item.UpgradePrice.ToString();
     }
 
     void PrintCurrentClickCoinTxt()
     {
-        CurrentClickCoinTxt.text = $"ÇöÀç : {clickController.ClickReward} <color=blue>(+1)</color>";
+        CurrentClickCoinTxt.text = $"í˜„ì¬ : {clickController.ClickReward} <color=blue>(+1)</color>";
     }
 
     void PrintCurrentAutoTimeTxt()
     {
-        CurrentAutoTimeTxt.text = $"ÇöÀç : {clickController.AutoClickTime} <color=blue>(-0.05)</color>";
+        CurrentAutoTimeTxt.text = $"í˜„ì¬ : {clickController.AutoClickTime} <color=blue>(-0.05)</color>";
     }
 }

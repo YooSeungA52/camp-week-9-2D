@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -7,8 +6,8 @@ public class ClickController : MonoBehaviour
 {
     public TextMeshProUGUI CoinText;
     public int Coin = 0;
-    public int ClickReward = 1; // Å¬¸¯ ´ç º¸»ó
-    public float AutoClickTime = 3.0f; // ÀÚµ¿ Å¬¸¯ ÁÖ±â
+    public int ClickReward = 1; // í´ë¦­ ë‹¹ ë³´ìƒ
+    public float AutoClickTime = 3.0f; // ìë™ í´ë¦­ ì£¼ê¸°
 
     [SerializeField] private int count = 0;
 
@@ -38,7 +37,7 @@ public class ClickController : MonoBehaviour
         UpdateCoinText();
     }
 
-    public void StartAutoClick() // ÀÚµ¿ Å¬¸¯
+    public void StartAutoClick() // ìë™ í´ë¦­
     {
         StartCoroutine(AutoClickCoroutine());
     }
@@ -56,12 +55,12 @@ public class ClickController : MonoBehaviour
         }
     }
 
-    public void IncreaseClickReward(int amount) // Å¬¸¯ º¸»ó Áõ°¡
+    public void IncreaseClickReward(int amount) // í´ë¦­ ë³´ìƒ ì¦ê°€
     {
         ClickReward += amount;
     }
 
-    public void DecreaseClickReward(float autoTime) // ÀÚµ¿ Å¬¸¯ ½Ã°£ °¨¼Ò
+    public void DecreaseClickReward(float autoTime) // ìë™ í´ë¦­ ì‹œê°„ ê°ì†Œ
     {
         AutoClickTime -= autoTime;
     }

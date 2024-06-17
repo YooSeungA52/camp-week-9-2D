@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ShopItem
+ï»¿public class ShopItem
 {
-    public string ItemName; // ¾ÆÀÌÅÛ ÀÌ¸§
-    public bool IsBuy; // ±¸¸Å ¿©ºÎ
-    public int UpgradeLevel = 0; // ¾÷±×·¹ÀÌµå ·¹º§
-    public int Price; // °¡°İ
-    public int UpgradePrice; // ¾÷±×·¹ÀÌµå ºñ¿ë
-    public System.Action UpgradeAction; // ¾÷±×·¹ÀÌµå µ¿ÀÛ
+    public string ItemName; // ì•„ì´í…œ ì´ë¦„
+    public bool IsBuy; // êµ¬ë§¤ ì—¬ë¶€
+    public int UpgradeLevel = 0; // ì—…ê·¸ë ˆì´ë“œ ë ˆë²¨
+    public int Price; // ê°€ê²©
+    public int UpgradePrice; // ì—…ê·¸ë ˆì´ë“œ ë¹„ìš©
+    public System.Action UpgradeAction; // ì—…ê·¸ë ˆì´ë“œ ë™ì‘
 }

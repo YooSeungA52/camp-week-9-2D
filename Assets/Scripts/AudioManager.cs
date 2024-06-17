@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
@@ -33,45 +31,45 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        bgmSource.Play(); // BGM Àç»ı
+        bgmSource.Play(); // BGM ì¬ìƒ
 
-        // º¼·ı ½½¶óÀÌ´õ ÃÊ±âÈ­
-        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 0.5f); // ÀúÀåµÈ º¼·ı ºÒ·¯¿À±â, ¾øÀ¸¸é ±âº»°ª 0.5f·Î ¼³Á¤
+        // ë³¼ë¥¨ ìŠ¬ë¼ì´ë” ì´ˆê¸°í™”
+        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 0.5f); // ì €ì¥ëœ ë³¼ë¥¨ ë¶ˆëŸ¬ì˜¤ê¸°, ì—†ìœ¼ë©´ ê¸°ë³¸ê°’ 0.5fë¡œ ì„¤ì •
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
         UpdateBGMVolume();
         UpdateSFXVolume();
     }
 
-    public void UpdateBGMVolume() // BGM º¼·ı Á¶Àı ¸Ş¼­µå
+    public void UpdateBGMVolume() // BGM ë³¼ë¥¨ ì¡°ì ˆ ë©”ì„œë“œ
     {
         float volume = bgmVolumeSlider.value;
-        PlayerPrefs.SetFloat("BGMVolume", volume); // ¼³Á¤µÈ º¼·ı ÀúÀå
-        bgmSource.volume = volume; // BGM º¼·ı Á¶Àı
+        PlayerPrefs.SetFloat("BGMVolume", volume); // ì„¤ì •ëœ ë³¼ë¥¨ ì €ì¥
+        bgmSource.volume = volume; // BGM ë³¼ë¥¨ ì¡°ì ˆ
     }
 
-    public void UpdateSFXVolume() // SFX º¼·ı Á¶Àı ¸Ş¼­µå
+    public void UpdateSFXVolume() // SFX ë³¼ë¥¨ ì¡°ì ˆ ë©”ì„œë“œ
     {
         float volume = sfxVolumeSlider.value;
-        PlayerPrefs.SetFloat("SFXVolume", volume); // ¼³Á¤µÈ º¼·ı ÀúÀå
-        sfxSource.volume = volume; // SFX º¼·ı Á¶Àı
+        PlayerPrefs.SetFloat("SFXVolume", volume); // ì„¤ì •ëœ ë³¼ë¥¨ ì €ì¥
+        sfxSource.volume = volume; // SFX ë³¼ë¥¨ ì¡°ì ˆ
     }
 
-    public void PlayClickSound() // Å¬¸¯ ½Ã È¿°úÀ½
+    public void PlayClickSound() // í´ë¦­ ì‹œ íš¨ê³¼ìŒ
     {
         sfxSource.PlayOneShot(clickSound);
     }
 
-    public void PlayBuySound() // ¾ÆÀÌÅÛ ±¸¸Å ½Ã È¿°úÀ½
+    public void PlayBuySound() // ì•„ì´í…œ êµ¬ë§¤ ì‹œ íš¨ê³¼ìŒ
     {
         sfxSource.PlayOneShot(buySound);
     }
 
-    public void PlayUpgradeSound() // ¾ÆÀÌÅÛ ¾÷±Û ½Ã È¿°úÀ½
+    public void PlayUpgradeSound() // ì•„ì´í…œ ì—…ê¸€ ì‹œ íš¨ê³¼ìŒ
     {
         sfxSource.PlayOneShot(upgradeSound);
     }
 
-    public void PlayFailSound() // ÄÚÀÎ ºÎÁ· ½Ã È¿°úÀ½
+    public void PlayFailSound() // ì½”ì¸ ë¶€ì¡± ì‹œ íš¨ê³¼ìŒ
     {
         sfxSource.PlayOneShot(failSound);
     }

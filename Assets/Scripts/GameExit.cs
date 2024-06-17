@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class GameExitBtn : MonoBehaviour
 {
     public GameObject ExitWindow;
 
-    public void GameExit() // °ÔÀÓ Á¾·á
+    public void GameExit() // ê²Œìž„ ì¢…ë£Œ
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -15,7 +13,7 @@ public class GameExitBtn : MonoBehaviour
 #endif
     }
 
-    public void CancelExitGame() // Ãë¼Ò
+    public void CancelExitGame() // ì·¨ì†Œ
     {
         ExitWindow.SetActive(false);
     }
