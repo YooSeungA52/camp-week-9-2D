@@ -6,8 +6,11 @@ using UnityEngine;
 public class ClickController : MonoBehaviour
 {
     public TextMeshProUGUI countText;
-    private int count = 0;
-    private int clickReward = 1;
+
+    [SerializeField] private int count = 0;
+    [SerializeField] private int coin = 0;
+    [SerializeField] private int clickReward = 1; // 클릭 당 보상
+    [SerializeField] private float AutoClickTime = 3.0f; // 자동 클릭 주기
 
     Animator anim;
 
@@ -23,13 +26,30 @@ public class ClickController : MonoBehaviour
 
     void UpdateCountText()
     {
-        countText.text = "Count: " + count.ToString();
+        countText.text = "coin: " + coin.ToString();
     }
 
     public void OnClick()
     {
         anim.SetTrigger("isClick");
-        count += clickReward;
+        count++;
+        coin += clickReward;
         UpdateCountText();
+    }
+
+    public void StartAutoClick() // 자동 클릭
+    {
+        StartCoroutine(AutoClickCoroutine());
+    }
+
+    IEnumerator AutoClickCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(AutoClickTime);
+            count++;
+            coin += clickReward;
+            UpdateCountText();
+        }
     }
 }
