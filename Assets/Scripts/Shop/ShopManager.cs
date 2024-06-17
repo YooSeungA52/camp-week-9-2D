@@ -30,7 +30,11 @@ public class ShopManager : MonoBehaviour
             IsBuy = true,
             UpgradeLevel = 0,
             Price = 30,
-            UpgradePrice = 30
+            UpgradePrice = 30,
+            UpgradeAction = () =>
+            {
+                clickController.IncreaseClickReward(1); // 클릭 보상 증가
+            }
         };
 
         autoClickUpgradeItem = new ShopItem()
@@ -39,20 +43,31 @@ public class ShopManager : MonoBehaviour
             IsBuy = false,
             UpgradeLevel = 0,
             Price = 100,
-            UpgradePrice = 100
+            UpgradePrice = 100,
+            UpgradeAction = () =>
+            {
+                clickController.DecreaseClickReward(0.05f); // 자동 클릭 시간 감소
+            }
         };
 
-        BuyButton.onClick.AddListener(OnBuyButtonClick);
-        ClickUpgradeButton.onClick.AddListener(OnClickUpgradeButton);
-        AutoClickUpgradeButton.onClick.AddListener(OnAutoClickUpgradeButtonClick);
+        BuyButton.onClick.AddListener(OnBuyAutoClickButton);
+        //ClickUpgradeButton.onClick.AddListener(OnClickUpgradeButton);
+        //AutoClickUpgradeButton.onClick.AddListener(OnAutoClickUpgradeButton);
+        ClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(clickUpgradeItem));
+        AutoClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(autoClickUpgradeItem));
 
         GiveMeMoreCoinsUI.SetActive(false);
     }
 
     void Update()
     {
+        /*
         UpdateClickPriceText();
         UpdateAutoClickPriceText();
+        */
+        UpdatePriceText(ClickPriceText, clickUpgradeItem);
+        UpdatePriceText(AutoClickPriceText, autoClickUpgradeItem);
+
         PrintCurrentClickCoinTxt();
 
         if (!BuyButton.gameObject.activeSelf)
@@ -65,7 +80,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void OnBuyButtonClick() // 자동 클릭 구매
+    void OnBuyAutoClickButton() // 자동 클릭 구매
     {
         if (!autoClickUpgradeItem.IsBuy && clickController.Coin >= autoClickUpgradeItem.Price)
         {
@@ -82,31 +97,15 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void OnClickUpgradeButton() // 클릭 보상 업글
+    void OnUpgradeButton(ShopItem item) // 아이템 업그레이드
     {
-        if (clickUpgradeItem.IsBuy && clickController.Coin >= clickUpgradeItem.UpgradePrice)
+        if (item.IsBuy && clickController.Coin >= item.UpgradePrice)
         {
             AudioManager.Instance.PlayUpgradeSound();
-            clickController.Coin -= clickUpgradeItem.UpgradePrice;
-            clickUpgradeItem.UpgradeLevel++;
-            clickController.IncreaseClickReward(1); // 클릭 보상 증가
-            clickUpgradeItem.UpgradePrice += clickUpgradeItem.UpgradePrice / 2; // 업그레이드 비용 증가
-        }
-        else
-        {
-            PrintGiveMeMoreCoinsUI();
-        }
-    }
-
-    void OnAutoClickUpgradeButtonClick() // 자동 클릭 업글
-    {
-        if (autoClickUpgradeItem.IsBuy && clickController.Coin >= autoClickUpgradeItem.UpgradePrice)
-        {
-            AudioManager.Instance.PlayUpgradeSound();
-            clickController.Coin -= autoClickUpgradeItem.UpgradePrice;
-            autoClickUpgradeItem.UpgradeLevel++;
-            clickController.DecreaseClickReward(0.05f); // 자동 클릭 시간 감소
-            autoClickUpgradeItem.UpgradePrice += autoClickUpgradeItem.UpgradePrice / 2; // 업그레이드 비용 증가
+            clickController.Coin -= item.UpgradePrice;
+            item.UpgradeLevel++;
+            item.UpgradeAction(); // 업그레이드 동작 실행
+            item.UpgradePrice += item.UpgradePrice / 2; // 업그레이드 비용 증가
         }
         else
         {
@@ -126,14 +125,9 @@ public class ShopManager : MonoBehaviour
         GiveMeMoreCoinsUI.SetActive(false);
     }
 
-    void UpdateClickPriceText()
+    void UpdatePriceText(TextMeshProUGUI priceText, ShopItem item)
     {
-        ClickPriceText.text = "비용 : " + clickUpgradeItem.UpgradePrice.ToString();
-    }
-
-    void UpdateAutoClickPriceText()
-    {
-        AutoClickPriceText.text = "비용 : " + autoClickUpgradeItem.UpgradePrice.ToString();
+        priceText.text = "비용 : " + item.UpgradePrice.ToString();
     }
 
     void PrintCurrentClickCoinTxt()
