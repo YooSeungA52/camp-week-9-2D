@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ClickController : MonoBehaviour
 {
-    public TextMeshProUGUI countText;
+    public TextMeshProUGUI CoinText;
+    public int Coin = 0;
+    public int ClickReward = 1; // 클릭 당 보상
+    public float AutoClickTime = 3.0f; // 자동 클릭 주기
 
     [SerializeField] private int count = 0;
-    [SerializeField] private int coin = 0;
-    [SerializeField] private int clickReward = 1; // 클릭 당 보상
-    [SerializeField] private float AutoClickTime = 3.0f; // 자동 클릭 주기
 
     Animator anim;
 
@@ -19,22 +19,22 @@ public class ClickController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void Start()
+    void Update()
     {
-        UpdateCountText();
+        UpdateCoinText();
     }
 
-    void UpdateCountText()
+    void UpdateCoinText()
     {
-        countText.text = "coin: " + coin.ToString();
+        CoinText.text = "coin: " + Coin.ToString();
     }
 
     public void OnClick()
     {
         anim.SetTrigger("isClick");
         count++;
-        coin += clickReward;
-        UpdateCountText();
+        Coin += ClickReward;
+        UpdateCoinText();
     }
 
     public void StartAutoClick() // 자동 클릭
@@ -47,9 +47,20 @@ public class ClickController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(AutoClickTime);
+            anim.SetTrigger("isClick");
             count++;
-            coin += clickReward;
-            UpdateCountText();
+            Coin += ClickReward;
+            UpdateCoinText();
         }
+    }
+
+    public void IncreaseClickReward(int amount) // 클릭 보상 증가
+    {
+        ClickReward += amount;
+    }
+
+    public void DecreaseClickReward(float autoTime) // 자동 클릭 시간 감소
+    {
+        AutoClickTime -= autoTime;
     }
 }
