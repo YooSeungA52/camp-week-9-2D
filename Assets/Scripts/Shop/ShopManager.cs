@@ -115,13 +115,11 @@ public class ShopManager : MonoBehaviour
 
     void PrintCurrentClickCoinTxt()
     {
-        CurrentClickCoinTxt.text = "현재 : " + clickController.ClickReward.ToString();
+        CurrentClickCoinTxt.text = $"현재 : {clickController.ClickReward} <color=blue>(+1)</color>";
     }
 
     void PrintCurrentAutoTimeTxt()
     {
-        CurrentAutoTimeTxt.text = "현재 : " + clickController.AutoClickTime.ToString();
+        CurrentAutoTimeTxt.text = $"현재 : {clickController.AutoClickTime} <color=blue>(-0.05)</color>";
     }
 }
-
-// 스트링 더 예쁘게 바꾸기
