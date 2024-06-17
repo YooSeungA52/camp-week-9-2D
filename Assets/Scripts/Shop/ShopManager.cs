@@ -4,20 +4,28 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
+    public ClickController clickController;
+
     public ShopItem clickUpgradeItem; // 기본 클릭 아이템
     public ShopItem autoClickUpgradeItem; // 자동 클릭 아이템
 
+    [Header("PriceText")]
     public TextMeshProUGUI ClickPriceText;  // 기본 클릭 업그레이드 비용
     public TextMeshProUGUI AutoClickPriceText; // 자동 클릭 업그레이드 비용
+
+    [Header("CurrentText")]
     public TextMeshProUGUI CurrentClickCoinTxt;  // 현재 기본 클릭 코인량
     public TextMeshProUGUI CurrentAutoTimeTxt; // 현재 자동 클릭 시간
-    public GameObject GiveMeMoreCoinsUI; // 코인 부족 UI
 
-    public Button BuyButton; // 구매 버튼
+    [Header("BuyButton")]
+    public Button BuyAutoClickButton; // 구매 버튼
+
+    [Header("UpgradeButton")]
     public Button ClickUpgradeButton; // Click 업그레이드 버튼
     public Button AutoClickUpgradeButton; // AutoClick 업그레이드 버튼
 
-    public ClickController clickController;
+    [Header("UI")]
+    public GameObject GiveMeMoreCoinsUI; // 코인 부족 UI
 
     void Start()
     {
@@ -47,7 +55,7 @@ public class ShopManager : MonoBehaviour
             }
         };
 
-        BuyButton.onClick.AddListener(OnBuyAutoClickButton);
+        BuyAutoClickButton.onClick.AddListener(OnBuyAutoClickButton);
         ClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(clickUpgradeItem));
         AutoClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(autoClickUpgradeItem));
 
@@ -61,7 +69,7 @@ public class ShopManager : MonoBehaviour
 
         PrintCurrentClickCoinTxt();
 
-        if (!BuyButton.gameObject.activeSelf)
+        if (!BuyAutoClickButton.gameObject.activeSelf)
         {
             PrintCurrentAutoTimeTxt();
         }
@@ -80,7 +88,8 @@ public class ShopManager : MonoBehaviour
             autoClickUpgradeItem.IsBuy = true;
             clickController.StartAutoClick(); // 자동 클릭 시작
 
-            BuyButton.gameObject.SetActive(false); // 버튼 비활성화
+            BuyAutoClickButton.gameObject.SetActive(false); // 구매 버튼 비활성화
+            AutoClickUpgradeButton.gameObject.SetActive(true); // 업글 버튼 활성화
         }
         else
         {
