@@ -26,7 +26,7 @@ public class ClickController : MonoBehaviour
 
     void UpdateCoinText()
     {
-        CoinText.text = "coin: " + Coin.ToString();
+        CoinText.text = Coin.ToString();
     }
 
     public void OnClick()
