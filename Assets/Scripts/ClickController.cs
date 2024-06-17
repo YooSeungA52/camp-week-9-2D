@@ -8,8 +8,7 @@ public class ClickController : MonoBehaviour
     public int Coin = 0;
     public int ClickReward = 1; // 클릭 당 보상
     public float AutoClickTime = 3.0f; // 자동 클릭 주기
-
-    [SerializeField] private int count = 0;
+    public int count = 0;
 
     Animator anim;
 

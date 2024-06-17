@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8af8fe08b0fb1d4ab4c240a102e5d97, type: 3}
+  m_Name: ShopItem_AutoClick
+  m_EditorClassIdentifier: 
+  ItemName: AutoClick
+  IsBuy: 0
+  UpgradeLevel: 1
+  Price: 100
+  UpgradePrice: 100
+  type: 0
+  ClickReward: 0
+  AutoClickTime: 0
+  initialIsBuy: 0
+  initialUpgradeLevel: 0
+  initialPrice: 0
+  initialUpgradePrice: 0
+  initialClickReward: 0
+  initialAutoClickTime: 0
