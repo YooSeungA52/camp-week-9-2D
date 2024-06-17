@@ -4483,13 +4483,14 @@ GameObject:
   - component: {fileID: 1602834646}
   - component: {fileID: 1602834648}
   - component: {fileID: 1602834647}
+  - component: {fileID: 1602834649}
   m_Layer: 5
   m_Name: ExitWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1602834646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4551,6 +4552,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602834645}
   m_CullTransparentMesh: 1
+--- !u!114 &1602834649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602834645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038134b87bf0dc942b90729881c0248b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExitWindow: {fileID: 1602834645}
 --- !u!1 &1663260727
 GameObject:
   m_ObjectHideFlags: 0
@@ -6182,7 +6196,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2068650109}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1602834649}
+        m_TargetAssemblyTypeName: GameExitBtn, Assembly-CSharp
+        m_MethodName: CancelExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2068650109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6303,7 +6329,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2093065438}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1602834649}
+        m_TargetAssemblyTypeName: GameExitBtn, Assembly-CSharp
+        m_MethodName: GameExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2093065438
 MonoBehaviour:
   m_ObjectHideFlags: 0
