@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class ClickController : MonoBehaviour
@@ -45,6 +46,7 @@ public class ClickController : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log("AutoClick 일했다!");
             yield return new WaitForSeconds(AutoClickTime);
             anim.SetTrigger("isClick");
             AudioManager.Instance.PlayClickSound();

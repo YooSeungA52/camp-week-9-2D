@@ -17,12 +17,12 @@ MonoBehaviour:
   UpgradeLevel: 1
   Price: 300
   UpgradePrice: 100
-  type: 0
+  type: 1
   ClickReward: 1
-  AutoClickTime: 5
+  AutoClickTime: 4
   initialIsBuy: 0
-  initialUpgradeLevel: 0
-  initialPrice: 0
-  initialUpgradePrice: 0
-  initialClickReward: 0
-  initialAutoClickTime: 0
+  initialUpgradeLevel: 1
+  initialPrice: 300
+  initialUpgradePrice: 100
+  initialClickReward: 1
+  initialAutoClickTime: 4

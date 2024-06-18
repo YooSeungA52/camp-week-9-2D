@@ -827,6 +827,7 @@ GameObject:
   - component: {fileID: 232265259}
   - component: {fileID: 232265258}
   - component: {fileID: 232265260}
+  - component: {fileID: 232265261}
   m_Layer: 5
   m_Name: ClickBot_BearJelly
   m_TagString: Untagged
@@ -912,6 +913,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &232265261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232265256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d375cd9f902bf1458f64480c1ddd181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickController: {fileID: 1776785625}
 --- !u!1 &257314707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,6 +2203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250c5ada6ba17a447a676a5c04ade6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  botAutoClickManager: {fileID: 232265261}
   clickController: {fileID: 1776785625}
   ClickItem: {fileID: 11400000, guid: b3ad09aeb36d71f4b87562d01c138303, type: 2}
   AutoClickItem: {fileID: 11400000, guid: a6a3fcb47ad81fe4a92781d8bb0f9e19, type: 2}
@@ -8144,6 +8159,7 @@ GameObject:
   - component: {fileID: 1993736144}
   - component: {fileID: 1993736143}
   - component: {fileID: 1993736145}
+  - component: {fileID: 1993736146}
   m_Layer: 5
   m_Name: ClickBot_CatJelly
   m_TagString: Untagged
@@ -8218,7 +8234,7 @@ Animator:
   m_GameObject: {fileID: 1993736141}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 44a9ec995d18a064cb415213984d42da, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6e75eb5aaadc93c45b21313d133b0249, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8229,6 +8245,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1993736146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993736141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d375cd9f902bf1458f64480c1ddd181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickController: {fileID: 1776785625}
 --- !u!1 &2060848033
 GameObject:
   m_ObjectHideFlags: 0

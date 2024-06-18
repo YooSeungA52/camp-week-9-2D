@@ -21,8 +21,8 @@ MonoBehaviour:
   ClickReward: 0
   AutoClickTime: 0
   initialIsBuy: 1
-  initialUpgradeLevel: 2
+  initialUpgradeLevel: 1
   initialPrice: 30
-  initialUpgradePrice: 45
+  initialUpgradePrice: 30
   initialClickReward: 0
   initialAutoClickTime: 0

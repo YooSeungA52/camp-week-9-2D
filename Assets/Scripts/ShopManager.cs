@@ -2,11 +2,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class ShopManager : MonoBehaviour
 {
+    public BotAutoClickManager botAutoClickManager;
+
     [Header("ClickerBtn")]
     public ClickController clickController;
 
@@ -47,11 +47,13 @@ public class ShopManager : MonoBehaviour
     [Header("UI")]
     public GameObject GiveMeMoreCoinsUI; // 코인 부족 UI
 
-    Animator anim;
+    private Animator bearJellyAnim;
+    private Animator catJellyAnim;
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        bearJellyAnim = BotBearJelly.GetComponent<Animator>();
+        catJellyAnim = BotCatJelly.GetComponent<Animator>();
     }
 
     void Start()
@@ -83,8 +85,8 @@ public class ShopManager : MonoBehaviour
         };
 
         BuyAutoClickButton.onClick.AddListener(OnBuyAutoClickButton);
-        BuyBearJellyButton.onClick.AddListener(OnBuyBearJellyButton);
-        BuyCatJellyButton.onClick.AddListener(OnBuyCatJellyButton);
+        BuyBearJellyButton.onClick.AddListener(() => OnBuyBotButton(BearJellyItem, BotBearJelly, bearJellyAnim, BuyBearJellyButton, BearJellyUpgradeButton));
+        BuyCatJellyButton.onClick.AddListener(() => OnBuyBotButton(CatJellyItem, BotCatJelly, catJellyAnim, BuyCatJellyButton, CatJellyUpgradeButton));
 
         ClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(ClickItem));
         AutoClickUpgradeButton.onClick.AddListener(() => OnUpgradeButton(AutoClickItem));
@@ -167,44 +169,25 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void OnBuyBearJellyButton() // BearJelly 구매
+    void OnBuyBotButton(ShopItem botItem, GameObject botJelly, Animator anim, Button buyBtn, Button upgradeBtn)
     {
-        if (!BearJellyItem.IsBuy && clickController.Coin >= BearJellyItem.Price)
+        if(!botItem.IsBuy && clickController.Coin >= botItem.Price)
         {
             AudioManager.Instance.PlayBuySound();
-            BotBearJelly.SetActive(true);
-            clickController.Coin -= BearJellyItem.Price;
-            BearJellyItem.IsBuy = true;
-            StartAutoClick(BearJellyItem.AutoClickTime,BearJellyItem.ClickReward); // 자동 클릭 시작
+            botJelly.SetActive(true);
+            clickController.Coin -= botItem.Price;
+            botItem.IsBuy = true;
 
-            BuyBearJellyButton.gameObject.SetActive(false); // 구매 버튼 비활성화
-            BearJellyUpgradeButton.gameObject.SetActive(true); // 업글 버튼 활성화
+            botAutoClickManager.StartCoroutine(botAutoClickManager.BotClickCoroutine(botItem, anim));
+
+            buyBtn.gameObject.SetActive(false);
+            upgradeBtn.gameObject.SetActive(true);
         }
         else
         {
             PrintGiveMeMoreCoinsUI();
         }
     }
-
-    void OnBuyCatJellyButton() // CatJelly 구매
-    {
-        if (!CatJellyItem.IsBuy && clickController.Coin >= CatJellyItem.Price)
-        {
-            AudioManager.Instance.PlayBuySound();
-            BotCatJelly.SetActive(true);
-            clickController.Coin -= CatJellyItem.Price;
-            CatJellyItem.IsBuy = true;
-            StartAutoClick(CatJellyItem.AutoClickTime, CatJellyItem.ClickReward); // 자동 클릭 시작
-
-            BuyCatJellyButton.gameObject.SetActive(false); // 구매 버튼 비활성화
-            CatJellyUpgradeButton.gameObject.SetActive(true); // 업글 버튼 활성화
-        }
-        else
-        {
-            PrintGiveMeMoreCoinsUI();
-        }
-    }
-
 
     void OnUpgradeButton(ShopItem item) // 아이템 업그레이드
     {
@@ -222,7 +205,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void PrintGiveMeMoreCoinsUI()
+    void PrintGiveMeMoreCoinsUI() // 코인 부족 UI
     {
         AudioManager.Instance.PlayFailSound();
         GiveMeMoreCoinsUI.SetActive(true);
@@ -246,35 +229,17 @@ public class ShopManager : MonoBehaviour
 
     void PrintCurrentAutoTimeTxt()
     {
-        CurrentAutoTimeTxt.text = $"현재 : {clickController.AutoClickTime} <color=blue>(-0.05)</color>";
+        CurrentAutoTimeTxt.text = $"현재 : {clickController.AutoClickTime.ToString("N2")} <color=blue>(-0.05)</color>";
     }
 
     void PrintCurrentBearJellyAutoTimeTxt()
     {
-        CurrentBearJellyAutoTimeTxt.text = $"현재 : {BearJellyItem.AutoClickTime} <color=blue>(-0.05)</color>";
+        CurrentBearJellyAutoTimeTxt.text = $"현재 : {BearJellyItem.AutoClickTime.ToString("N2")} <color=blue>(-0.05)</color>";
     }
 
     void PrintCurrentCatJellyAutoTimeTxt()
     {
-        CurrentCatJellyAutoTimeTxt.text = $"현재 : {CatJellyItem.AutoClickTime} <color=blue>(-0.05)</color>";
-    }
-
-    public void StartAutoClick(float autoClickTime, int clickReward) // 봇 자동 클릭
-    {
-        StartCoroutine(BotClickCoroutine(autoClickTime, clickReward));
-    }
-
-    IEnumerator BotClickCoroutine(float autoClickTime, int clickReward)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(autoClickTime);
-            anim.SetTrigger("isClick");
-            AudioManager.Instance.PlayClickSound();
-            clickController.count++;
-            clickController.Coin += clickReward;
-            UpdateCoinText();
-        }
+        CurrentCatJellyAutoTimeTxt.text = $"현재 : {CatJellyItem.AutoClickTime.ToString("N2")} <color=blue>(-0.05)</color>";
     }
 
     void UpdateCoinText()
